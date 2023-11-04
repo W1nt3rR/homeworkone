@@ -1,5 +1,7 @@
 package com.homework.one;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Scanner;
 
 public class Zadatak36 {
@@ -12,22 +14,25 @@ public class Zadatak36 {
         System.out.println("Unesite broj n: ");
         int n = scan.nextInt();
 
-        double sum = 0;
+        BigDecimal sum = BigDecimal.ZERO;
 
         for (int i = 1; i <= n; i++) {
-            System.out.println("i: " + i + ", i!: " + factorial(i));
-            sum += (double) i / factorial(i);
+            BigDecimal factorial = factorial(i);
+            BigDecimal temp = BigDecimal.ONE.divide(factorial, 100, RoundingMode.HALF_UP);
+            sum = sum.add(temp);
         }
 
         System.out.println("Suma je: " + sum);
 
+        scan.close();
+
     }
 
-    public static long factorial(int n) {
-        long factorial = 1;
+    public static BigDecimal factorial(int n) {
+        BigDecimal factorial = BigDecimal.ONE;
 
         for (int i = 1; i <= n; i++) {
-            factorial *= i;
+            factorial = factorial.multiply(BigDecimal.valueOf(i));
         }
 
         return factorial;
